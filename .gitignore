@@ -58,3 +58,4 @@ Build
 out
 .vs
 .git
+CMakeSettings.json
