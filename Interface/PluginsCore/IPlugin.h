@@ -21,12 +21,10 @@ public:
     virtual PLUGIN_TYPE GetPluginType() = 0;
 
 signals:
-    // 向IPluginsManager发送消息
-    void Message(const QString& key, const QVariant& msg);
+    void MessageSignal(const QString& key, const QVariant& msg);
 
 public slots:
-    // 收到IPluginsManager消息
-    virtual void onMessage(const QString& key, const QVariant& msg) = 0;
+    virtual void MessageSlot(const QString& key, const QVariant& msg) = 0;
 };
 
 #endif // IPLUGIN_H

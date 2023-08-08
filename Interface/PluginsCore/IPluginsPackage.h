@@ -20,8 +20,7 @@ public:
     virtual IPlugin* CreatePlugin(const QString& id) = 0;
 
 signals:
-    // 收到IPlugin注册，向IPluginsManager注册消息
-    void Register(const IPlugin* obj);
+    void RegisterSignal(const IPlugin* obj);
 };
 
 Q_DECLARE_INTERFACE(IPluginsPackage, IPluginsPackageIID)

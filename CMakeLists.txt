@@ -8,8 +8,14 @@ message("PROJ_HOME" ${PROJ_HOME})
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/Build/${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/Build/${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE}/pluginspackage)
 
+if(WIN32)
+	set(CMAKE_SHARED_LIBRARY_PREFIX "lib")
+	set(CMAKE_EXECUTABLE_SUFFIX "_d.exe")
+else()
+	set(CMAKE_EXECUTABLE_SUFFIX "_d")
+endif()
+
 set(CMAKE_DEBUG_POSTFIX "_d")
-set(CMAKE_EXECUTABLE_SUFFIX "_d")
 
 add_subdirectory(PluginsManager)
 add_subdirectory(PluginsPackageDemo)

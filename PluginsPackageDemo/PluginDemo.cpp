@@ -20,7 +20,7 @@ IPlugin::PLUGIN_TYPE PluginDemo::GetPluginType()
     return SINGLE;
 }
 
-void PluginDemo::onMessage(const QString& key, const QVariant &msg)
+void PluginDemo::MessageSlot(const QString& key, const QVariant &msg)
 {
     if(key == "echo.demoplugin.pluginspackage.joyed.cn")
     {
@@ -31,5 +31,5 @@ void PluginDemo::onMessage(const QString& key, const QVariant &msg)
 void PluginDemo::Echo(const QString &msg)
 {
     LOG() << "send msg: " << msg;
-    emit Message("echo.demoplugin.pluginspackage.joyed.cn", msg);
+    emit MessageSignal("echo.demoplugin.pluginspackage.joyed.cn", msg);
 }

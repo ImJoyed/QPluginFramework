@@ -16,7 +16,7 @@ public:
     virtual PLUGIN_TYPE GetPluginType() override;
 
 public slots:
-    virtual void onMessage(const QString& key, const QVariant &msg) override;
+    virtual void MessageSlot(const QString& key, const QVariant &msg) override;
 
     // IPluginDemo interface
 public:

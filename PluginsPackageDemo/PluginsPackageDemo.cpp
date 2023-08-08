@@ -24,7 +24,7 @@ IPlugin *PluginsPackageDemo::CreatePlugin(const QString &id)
     if(id == PLUGINDEMO_ID)
     {
         plugin = new PluginDemo();
-        emit Register(plugin);
+        emit RegisterSignal(plugin);
     }
     return plugin;
 }

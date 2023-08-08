@@ -33,8 +33,8 @@ public:
     virtual qsizetype GetPluginsCount(const QString& id) override;
 
 public slots:
-    virtual void onRegister(const IPlugin *plugin) override;
-    virtual void onMessage(const QString& key, const QVariant &msg) override;
+    virtual void RegisterSlot(const IPlugin *plugin) override;
+    virtual void MessageSlot(const QString& key, const QVariant &msg) override;
 };
 
 #endif // PLUGINSMANAGER_H

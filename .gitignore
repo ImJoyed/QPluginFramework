@@ -55,3 +55,6 @@ compile_commands.json
 
 # Build files
 Build
+out
+.vs
+.git

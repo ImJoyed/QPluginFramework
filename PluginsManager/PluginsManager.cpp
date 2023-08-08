@@ -65,8 +65,8 @@ bool PluginsManager::InitPluginManager(QString plguinsDir)
                 {
                     m_pluginsPkg.insert(id, pluginsPackage);
                 }
-                LOG() << "Connect register single.";
-                connect(pluginsPackage, &IPluginsPackage::Register, this, &PluginsManager::onRegister);
+                LOG() << "Connect register signal.";
+                connect(pluginsPackage, &IPluginsPackage::RegisterSignal, this, &PluginsManager::RegisterSlot);
                 LOG() << "Load PluginsPackage: " << pluginsPackagePath << " done.";
             }
         }
@@ -150,8 +150,8 @@ bool PluginsManager::DestroyPlugin(const QString &id, const qsizetype &index)
     }
     IPlugin* plugin = plugins.at(index);
 
-    disconnect(plugin, &IPlugin::Message, this, &PluginsManager::onMessage);
-    disconnect(this, &PluginsManager::Message, plugin, &IPlugin::onMessage);
+    disconnect(plugin, &IPlugin::MessageSignal, this, &PluginsManager::MessageSlot);
+    disconnect(this, &PluginsManager::MessageSignal, plugin, &IPlugin::MessageSlot);
 
     delete plugin;
     plugins.removeAt(index);
@@ -169,8 +169,8 @@ bool PluginsManager::DestroyPlugin(const IPlugin *plugin)
         {
             if(plugins[i] == plugin)
             {
-                disconnect(plugins[i], &IPlugin::Message, this, &PluginsManager::onMessage);
-                disconnect(this, &PluginsManager::Message, plugins[i], &IPlugin::onMessage);
+                disconnect(plugins[i], &IPlugin::MessageSignal, this, &PluginsManager::MessageSlot);
+                disconnect(this, &PluginsManager::MessageSignal, plugins[i], &IPlugin::MessageSlot);
                 delete plugins[i];
                 plugins.removeAt(i);
                 LOG() << "Destroyed plugin("<< (void*)plugin << ")";
@@ -191,13 +191,13 @@ qsizetype PluginsManager::GetPluginsCount(const QString &id)
     return m_plugins.value(id).count();
 }
 
-void PluginsManager::onRegister(const IPlugin *plugin)
+void PluginsManager::RegisterSlot(const IPlugin *plugin)
 {
-    connect(plugin, &IPlugin::Message, this, &PluginsManager::onMessage);
-    connect(this, &PluginsManager::Message, plugin, &IPlugin::onMessage);
+    connect(plugin, &IPlugin::MessageSignal, this, &PluginsManager::MessageSlot);
+    connect(this, &PluginsManager::MessageSignal, plugin, &IPlugin::MessageSlot);
 }
 
-void PluginsManager::onMessage(const QString& key, const QVariant &msg)
+void PluginsManager::MessageSlot(const QString& key, const QVariant &msg)
 {
-    emit Message(key, msg);
+    emit MessageSignal(key, msg);
 }
