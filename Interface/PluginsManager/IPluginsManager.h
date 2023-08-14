@@ -26,10 +26,10 @@ public:
 
 public slots:
     virtual void RegisterSlot(const IPlugin* plugin) = 0;
-    virtual void MessageSlot(const QString& key, const QVariant& msg) = 0;
+    virtual void MessageSlot(const QString& key, const QObject* msgObj) = 0;
 
 signals:
-    void MessageSignal(const QString& key, const QVariant& msg);
+    void MessageSignal(const QString& key, const QObject* msgObj);
 };
 
 Q_DECLARE_INTERFACE(IPluginsManager, IPluginsManagerIID)

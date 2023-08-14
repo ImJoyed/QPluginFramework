@@ -9,6 +9,11 @@ PluginDemo::PluginDemo(QObject *parent)
 
 }
 
+PluginDemo::~PluginDemo()
+{
+
+}
+
 bool PluginDemo::InitPlugin()
 {
     LOG() << "Init plugin.";
@@ -20,16 +25,18 @@ IPlugin::PLUGIN_TYPE PluginDemo::GetPluginType()
     return SINGLE;
 }
 
-void PluginDemo::MessageSlot(const QString& key, const QVariant &msg)
+void PluginDemo::MessageSlot(const QString& key, const QObject* msgObj)
 {
+    ;
     if(key == "echo.demoplugin.pluginspackage.joyed.cn")
     {
-        LOG() << "recv msg: " << msg.toString();
+        LOG() << "recv msg: " << msgObj->property("echo").toString();
     }
 }
 
 void PluginDemo::Echo(const QString &msg)
 {
     LOG() << "send msg: " << msg;
-    emit MessageSignal("echo.demoplugin.pluginspackage.joyed.cn", msg);
+    this->setProperty("echo", msg);
+    emit MessageSignal("echo.demoplugin.pluginspackage.joyed.cn", this);
 }

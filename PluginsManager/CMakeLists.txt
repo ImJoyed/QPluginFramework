@@ -8,8 +8,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Gui LinguistTools)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui LinguistTools)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Gui Widgets LinguistTools)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui Widgets LinguistTools)
 
 set(TS_FILES PluginsManager_zh_CN.ts)
 
@@ -23,7 +23,7 @@ add_library(PluginsManager SHARED
   ${Interface}
 )
 
-target_link_libraries(PluginsManager PRIVATE Qt${QT_VERSION_MAJOR}::Gui)
+target_link_libraries(PluginsManager PRIVATE Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets)
 set_target_properties(PluginsManager PROPERTIES SUFFIX ".plugin")
 
 target_compile_definitions(PluginsManager PRIVATE PLUGINSMANAGER_LIBRARY)

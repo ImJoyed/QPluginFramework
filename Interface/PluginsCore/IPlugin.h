@@ -12,19 +12,23 @@ public:
     {
 
     }
+    virtual ~IPlugin()
+    {
+    
+    };
     virtual bool InitPlugin() = 0;
 
     enum PLUGIN_TYPE{
-        NORMAL,
+        NORMAL = 0,
         SINGLE,
     };
     virtual PLUGIN_TYPE GetPluginType() = 0;
 
 signals:
-    void MessageSignal(const QString& key, const QVariant& msg);
+    void MessageSignal(const QString& key, const QObject* msgObj);
 
 public slots:
-    virtual void MessageSlot(const QString& key, const QVariant& msg) = 0;
+    virtual void MessageSlot(const QString& key, const QObject* msgObj) = 0;
 };
 
 #endif // IPLUGIN_H

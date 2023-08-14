@@ -34,7 +34,7 @@ public:
 
 public slots:
     virtual void RegisterSlot(const IPlugin *plugin) override;
-    virtual void MessageSlot(const QString& key, const QVariant &msg) override;
+    virtual void MessageSlot(const QString& key, const QObject *msgObj) override;
 };
 
 #endif // PLUGINSMANAGER_H

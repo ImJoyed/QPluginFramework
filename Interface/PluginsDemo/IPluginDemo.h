@@ -15,6 +15,10 @@ public:
     {
 
     }
+    virtual ~IPluginDemo()
+    {
+    
+    };
     virtual void Echo(const QString& msg) = 0;
 };
 

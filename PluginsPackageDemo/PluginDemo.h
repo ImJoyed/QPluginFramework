@@ -9,6 +9,7 @@ class PluginDemo : public IPluginDemo
 
 public:
     explicit PluginDemo(QObject *parent = nullptr);
+    ~PluginDemo();
 
     // IPlugin interface
 public:
@@ -16,7 +17,7 @@ public:
     virtual PLUGIN_TYPE GetPluginType() override;
 
 public slots:
-    virtual void MessageSlot(const QString& key, const QVariant &msg) override;
+    virtual void MessageSlot(const QString& key, const QObject* msgObj) override;
 
     // IPluginDemo interface
 public:

@@ -197,7 +197,7 @@ void PluginsManager::RegisterSlot(const IPlugin *plugin)
     connect(this, &PluginsManager::MessageSignal, plugin, &IPlugin::MessageSlot);
 }
 
-void PluginsManager::MessageSlot(const QString& key, const QVariant &msg)
+void PluginsManager::MessageSlot(const QString& key, const QObject *msgObj)
 {
-    emit MessageSignal(key, msg);
+    emit MessageSignal(key, msgObj);
 }
