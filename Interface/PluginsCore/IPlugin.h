@@ -3,6 +3,11 @@
 
 #include <QtCore>
 
+enum class PLUGIN_TYPE {
+    NORMAL = 0,
+    SINGLE,
+};
+
 class IPlugin : public QObject
 {
     Q_OBJECT
@@ -18,10 +23,6 @@ public:
     };
     virtual bool InitPlugin() = 0;
 
-    enum PLUGIN_TYPE{
-        NORMAL = 0,
-        SINGLE,
-    };
     virtual PLUGIN_TYPE GetPluginType() = 0;
 
 signals:

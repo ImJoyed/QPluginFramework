@@ -20,9 +20,9 @@ bool PluginDemo::InitPlugin()
     return true;
 }
 
-IPlugin::PLUGIN_TYPE PluginDemo::GetPluginType()
+PLUGIN_TYPE PluginDemo::GetPluginType()
 {
-    return SINGLE;
+    return PLUGIN_TYPE::SINGLE;
 }
 
 void PluginDemo::MessageSlot(const QString& key, const QObject* msgObj)

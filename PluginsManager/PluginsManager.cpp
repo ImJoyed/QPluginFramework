@@ -81,7 +81,7 @@ IPlugin *PluginsManager::CreatePlugin(const QString &id)
         && m_plugins.value(id).count() >= 1)
     {
         IPlugin* plugin = m_plugins.value(id).at(0);
-        if(plugin->GetPluginType() == IPlugin::SINGLE)
+        if(plugin->GetPluginType() == PLUGIN_TYPE::SINGLE)
         {
             LOG() << "Plugin " << id << " is SINGLETON, and have been created, return it.";
             return m_plugins.value(id).at(0);
