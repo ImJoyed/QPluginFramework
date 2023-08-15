@@ -54,6 +54,9 @@ endif()
 
 target_link_libraries(AppDemo PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
+link_directories(${PROJECT_SOURCE_DIR}/Build/${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE}/lib)
+target_link_libraries(AppDemo PRIVATE Ui)
+
 set_target_properties(AppDemo PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER qpluginframework.joyed.cn
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
