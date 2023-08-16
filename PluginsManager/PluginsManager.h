@@ -1,7 +1,7 @@
-#ifndef PLUGINSMANAGER_H
+﻿#ifndef PLUGINSMANAGER_H
 #define PLUGINSMANAGER_H
 
-#include "PluginsManager/IPluginsManager.h"
+#include "IPluginsManager.h"
 
 #define PluginsManagerIID "pluginsmanager.joyed.cn"
 #define PluginsManagerFILE "PluginsManager.json"

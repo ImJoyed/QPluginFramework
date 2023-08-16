@@ -10,4 +10,12 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>SubWindowList</name>
+    <message>
+        <location filename="../Ui/SubWindowList.cpp" line="23"/>
+        <source>Sub Windows List</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

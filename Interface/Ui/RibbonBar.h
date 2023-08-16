@@ -4,7 +4,8 @@
 #include <QWidget>
 #include <QTabWidget>
 #include <QList>
-#include "Ui/RibbonCategory.h"
+
+class RibbonCategory;
 
 class RibbonBar : public QWidget
 {

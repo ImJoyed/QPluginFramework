@@ -1,8 +1,8 @@
-#ifndef IPLUGINDEMO_H
+﻿#ifndef IPLUGINDEMO_H
 #define IPLUGINDEMO_H
 
 #include <QtCore>
-#include "../PluginsCore/IPlugin.h"
+#include "IPlugin.h"
 
 #define PLUGINDEMO_ID "plugindemo.pluginspackagedemo.joyed.cn"
 

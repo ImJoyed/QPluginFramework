@@ -13,7 +13,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui Widgets LinguistTools
 
 set(TS_FILES Ui_zh_CN.ts)
 
-include(../Interface/Interface.cmake)
+include(../Interface/Ui/Ui.cmake)
 
 add_library(Ui STATIC
     RibbonPanel.cpp

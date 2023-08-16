@@ -1,7 +1,7 @@
-#ifndef PLUGINSPACKAGEDEMO_H
+﻿#ifndef PLUGINSPACKAGEDEMO_H
 #define PLUGINSPACKAGEDEMO_H
 
-#include "PluginsCore/IPluginsPackage.h"
+#include "IPluginsPackage.h"
 
 #define PluginsPackageDemoIID "pluginspackagedemo.joyed.cn"
 #define PluginsPackageDemoFILE "PluginsPackageDemo.json"

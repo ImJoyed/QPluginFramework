@@ -1,5 +1,6 @@
-#include "Ui/RibbonBar.h"
+﻿#include "RibbonBar.h"
 #include <QHBoxLayout>
+#include "RibbonCategory.h"
 
 RibbonBar::RibbonBar(QWidget *parent)
     : QWidget{parent}

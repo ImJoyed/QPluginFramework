@@ -1,5 +1,5 @@
-#include "PluginsPackageDemo.h"
-#include "PluginsCore/IPlugin.h"
+﻿#include "PluginsPackageDemo.h"
+#include "IPlugin.h"
 #include <QDebug>
 #include <QMap>
 #include <QList>

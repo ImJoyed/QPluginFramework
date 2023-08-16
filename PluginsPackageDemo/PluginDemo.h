@@ -1,7 +1,7 @@
-#ifndef PLUGINDEMO_H
+﻿#ifndef PLUGINDEMO_H
 #define PLUGINDEMO_H
 
-#include "PluginsDemo/IPluginDemo.h"
+#include "IPluginDemo.h"
 
 class PluginDemo : public IPluginDemo
 {

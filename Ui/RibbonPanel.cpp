@@ -1,4 +1,4 @@
-#include "Ui/RibbonPanel.h"
+﻿#include "RibbonPanel.h"
 #include <QLine>
 
 RibbonPanel::RibbonPanel(const QString &name, QWidget *parent)

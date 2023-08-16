@@ -1,6 +1,6 @@
-#include "PluginsManager.h"
-#include "PluginsCore/IPluginsPackage.h"
-#include "PluginsCore/IPlugin.h"
+﻿#include "PluginsManager.h"
+#include "IPluginsPackage.h"
+#include "IPlugin.h"
 #include <QDebug>
 #include <QMap>
 #include <QList>

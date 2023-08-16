@@ -14,7 +14,10 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
 
 set(TS_FILES AppDemo_zh_CN.ts)
 
-include(../Interface/Interface.cmake)
+include(../Interface/PluginsCore/PluginsCore.cmake)
+include(../Interface/PluginsDemo/PluginsDemo.cmake)
+include(../Interface/PluginsManager/PluginsManager.cmake)
+include(../Interface/Ui/Ui.cmake)
 
 set(PROJECT_SOURCES
         main.cpp

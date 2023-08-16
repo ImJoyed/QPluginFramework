@@ -3,17 +3,18 @@
 
 #include <QPluginLoader>
 #include <QDebug>
-#include "PluginsManager/IPluginsManager.h"
-#include "PluginsDemo/IPluginDemo.h"
-#include "PluginsCore/IPlugin.h"
+#include "IPluginsManager.h"
+#include "IPluginDemo.h"
+#include "IPlugin.h"
 
-#include "Ui/RibbonBar.h"
+#include "RibbonBar.h"
 #include <QDateTime>
-#include "./Ui/SubWindowList.h"
-#include <QListView>
-#include <QMdiArea>
-#include <QMdiSubWindow>
 #include <QPushButton>
+
+#include "SubWindowList.h"
+#include "RibbonBar.h"
+#include "RibbonCategory.h"
+#include "RibbonPanel.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -84,7 +85,7 @@ MainWindow::MainWindow(QWidget *parent)
     QLabel *dateTime = new QLabel(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss.zzz"), this->statusBar());
     statusBarLayout->addWidget(dateTime);
 
-#define LOAD_PLUGINS_MANAGER 0
+#define LOAD_PLUGINS_MANAGER 1
 #if LOAD_PLUGINS_MANAGER
     qDebug() << "Load plugin.";
 

@@ -1,4 +1,5 @@
-#include "Ui/RibbonCategory.h"
+﻿#include "RibbonCategory.h"
+#include "RibbonPanel.h"
 
 RibbonCategory::RibbonCategory(QWidget *parent)
     : QWidget{parent}
