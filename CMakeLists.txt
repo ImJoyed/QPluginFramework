@@ -1,4 +1,4 @@
-cmake_policy(SET CMP0048 NEW)
+﻿cmake_policy(SET CMP0048 NEW)
 cmake_minimum_required(VERSION 3.15)
 project(QPluginFrameworkDemo VERSION 1.0.0)
 
@@ -21,3 +21,5 @@ add_subdirectory(Ui)
 add_subdirectory(PluginsManager)
 add_subdirectory(PluginsPackageDemo)
 add_subdirectory(AppDemo)
+
+add_dependencies(AppDemo Ui)

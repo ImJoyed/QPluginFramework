@@ -1,4 +1,4 @@
-#include "MainWindow.h"
+﻿#include "MainWindow.h"
 #include "./ui_MainWindow.h"
 
 #include <QPluginLoader>
@@ -170,6 +170,7 @@ MainWindow::MainWindow(QWidget *parent)
         }
     }
 #endif
+    this->showMaximized();
 }
 
 MainWindow::~MainWindow()

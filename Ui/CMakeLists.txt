@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+﻿cmake_minimum_required(VERSION 3.14)
 
 project(Ui LANGUAGES CXX)
 
@@ -15,7 +15,7 @@ set(TS_FILES Ui_zh_CN.ts)
 
 include(../Interface/Interface.cmake)
 
-add_library(Ui SHARED
+add_library(Ui STATIC
     RibbonPanel.cpp
     RibbonCategory.cpp
     RibbonBar.cpp

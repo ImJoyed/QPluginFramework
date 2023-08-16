@@ -1,13 +1,12 @@
-#ifndef RIBBONCATEGORY_H
+﻿#ifndef RIBBONCATEGORY_H
 #define RIBBONCATEGORY_H
 
 #include <QWidget>
 #include <QHBoxLayout>
 #include <QList>
 #include "Ui/RibbonPanel.h"
-#include "Ui/Ui_global.h"
 
-class UI_EXPORT RibbonCategory : public QWidget
+class RibbonCategory : public QWidget
 {
     Q_OBJECT
 public:

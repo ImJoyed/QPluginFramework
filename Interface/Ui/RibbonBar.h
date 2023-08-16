@@ -1,13 +1,12 @@
-#ifndef RIBBONBAR_H
+﻿#ifndef RIBBONBAR_H
 #define RIBBONBAR_H
 
 #include <QWidget>
 #include <QTabWidget>
 #include <QList>
 #include "Ui/RibbonCategory.h"
-#include "Ui/Ui_global.h"
 
-class UI_EXPORT RibbonBar : public QWidget
+class RibbonBar : public QWidget
 {
     Q_OBJECT
 public:

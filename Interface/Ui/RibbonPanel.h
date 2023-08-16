@@ -1,4 +1,4 @@
-#ifndef RIBBONPANEL_H
+﻿#ifndef RIBBONPANEL_H
 #define RIBBONPANEL_H
 
 #include <QWidget>
@@ -6,9 +6,8 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QList>
-#include "Ui/Ui_global.h"
 
-class UI_EXPORT RibbonPanel : public QGroupBox
+class RibbonPanel : public QGroupBox
 {
     Q_OBJECT
 public:

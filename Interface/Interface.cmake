@@ -1,6 +1,5 @@
-include_directories(${PROJ_HOME}/Interface)
+﻿include_directories(${PROJ_HOME}/Interface)
 set(Interface
-    ${PROJ_HOME}/Interface/Ui/Ui_global.h
     ${PROJ_HOME}/Interface/Ui/RibbonPanel.h
     ${PROJ_HOME}/Interface/Ui/RibbonCategory.h
     ${PROJ_HOME}/Interface/Ui/RibbonBar.h
