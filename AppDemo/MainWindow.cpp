@@ -9,7 +9,7 @@
 
 #include "Ui/RibbonBar.h"
 #include <QDateTime>
-#include <QDockWidget>
+#include "./Ui/SubWindowList.h"
 #include <QListView>
 #include <QMdiArea>
 #include <QMdiSubWindow>
@@ -51,50 +51,29 @@ MainWindow::MainWindow(QWidget *parent)
     btn = new QPushButton("btn_2_1_1");
     panel->AddButton(btn);
 
+    // dock widget
+    SubWindowList *subWindowsTree = new SubWindowList(this);
+    this->addDockWidget(Qt::DockWidgetArea::LeftDockWidgetArea, subWindowsTree);
+
     // mdi area
-    QMdiArea *mdiArea = new QMdiArea(this->centralWidget());
-    this->setCentralWidget(mdiArea);
-    QMdiSubWindow *subWindow;
+    this->setCentralWidget(subWindowsTree->GetSubWindowArea());
+
+
+    // add sub window
     QWidget *viewWidget;
     // sub window 1
     viewWidget = new QWidget(this);
     new QLabel("sub window 1", viewWidget);
-    subWindow = mdiArea->addSubWindow(viewWidget);
-    subWindow->setAttribute(Qt::WA_DeleteOnClose);
-    subWindow->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint);
-    subWindow->showMaximized();
-    subWindow->setWindowTitle("sub window 1");
-    viewWidget->showMaximized();
+    viewWidget->setWindowTitle("sub window 1");
+    subWindowsTree->AddSubWindow(viewWidget);
     // sub window 2
     viewWidget = new QWidget(this);
     new QLabel("sub window 2", viewWidget);
-    subWindow = mdiArea->addSubWindow(viewWidget);
-    subWindow->setAttribute(Qt::WA_DeleteOnClose);
-    subWindow->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint);
-    subWindow->showMaximized();
-    subWindow->setWindowTitle("sub window 2");
-    viewWidget->showMaximized();
+    viewWidget->setWindowTitle("sub window 2");
+    subWindowsTree->AddSubWindow(viewWidget);
     // active sub window 1
-    if(mdiArea->subWindowList().count() > 0)
-        mdiArea->setActiveSubWindow(mdiArea->subWindowList().at(0));
-
-    // dock widget
-    QDockWidget *subWindowsTree = new QDockWidget();
-    this->addDockWidget(Qt::DockWidgetArea::LeftDockWidgetArea, subWindowsTree);
-    QWidget *subWindowsTreeWidget = new QWidget(subWindowsTree);
-    subWindowsTree->setWidget(subWindowsTreeWidget);
-    // layout
-    QVBoxLayout *subWindowsTreeLayout = new QVBoxLayout(subWindowsTree);
-    subWindowsTreeWidget->setLayout(subWindowsTreeLayout);
-    subWindowsTreeLayout->setAlignment(Qt::AlignTop);
-    // title bar
-    delete subWindowsTree->titleBarWidget();
-    QWidget *subWindowsTreeTitleBar = new QWidget(subWindowsTree);
-    subWindowsTree->setTitleBarWidget(subWindowsTreeTitleBar);
-    QLabel *subWindowsTitleLabel = new QLabel("sub windows tree", subWindowsTreeWidget);
-    subWindowsTreeLayout->addWidget(subWindowsTitleLabel);
-    QListView *subWindowsList = new QListView(subWindowsTreeWidget);
-    subWindowsTreeLayout->addWidget(subWindowsList);
+    if(subWindowsTree->GetSubWindowArea()->subWindowList().count() > 0)
+        subWindowsTree->GetSubWindowArea()->setActiveSubWindow(subWindowsTree->GetSubWindowArea()->subWindowList().at(0));
 
     // status bar
     QWidget *statusBar = new QWidget(this);
@@ -176,5 +155,10 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+QMenu* MainWindow::createPopupMenu()
+{
+    return nullptr;
 }
 

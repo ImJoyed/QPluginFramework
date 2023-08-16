@@ -19,6 +19,7 @@ add_library(Ui STATIC
     RibbonPanel.cpp
     RibbonCategory.cpp
     RibbonBar.cpp
+    SubWindowList.cpp
     ${TS_FILES}
     ${Interface}
 )
