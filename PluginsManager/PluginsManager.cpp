@@ -4,6 +4,9 @@
 #include <QDebug>
 #include <QMap>
 #include <QList>
+#include "RibbonBar.h"
+#include <QMainWindow>
+#include "SubWindowList.h"
 
 #define LOG() qDebug() << "[PluginsManager]: "
 
@@ -31,7 +34,8 @@ bool PluginsManager::InitPluginManager(QString plguinsDir)
     QStringList pluginsPackagePathList;
 
     QFileInfoList fileInfoList = QDir(pluginsPackageDirPath).entryInfoList();
-    foreach(QFileInfo fileInfo, fileInfoList){
+    foreach(QFileInfo fileInfo, fileInfoList)
+    {
         if (!fileInfo.isFile() || (0 != fileInfo.suffix().compare("plugin")) || fileInfo.fileName() == pluginsManagerName)
         {
             continue;
@@ -75,7 +79,7 @@ bool PluginsManager::InitPluginManager(QString plguinsDir)
     return m_pluginsPkg.count() > 0;
 }
 
-IPlugin *PluginsManager::CreatePlugin(const QString &id)
+IPlugin *PluginsManager::CreatePlugin(const QString &id, bool translateUi)
 {
     if(m_plugins.contains(id)
         && m_plugins.value(id).count() >= 1)
@@ -114,6 +118,44 @@ IPlugin *PluginsManager::CreatePlugin(const QString &id)
                 QList<IPlugin*> plugins {plugin};
                 m_plugins.insert(id, plugins);
             }
+
+            if(!translateUi)
+            {
+                LOG() << "Needn't translate ui, return.";
+                return plugin;
+            }
+            LOG() << "Translate ui...";
+            if(m_ribbonBar)
+            {
+                IButtonPlugin *buttonPlugin = dynamic_cast<IButtonPlugin*>(plugin);
+                if(buttonPlugin)
+                {
+                    LOG() << "Translate to IButtonPlugin successful, add to ribbon bar.";
+                    m_ribbonBar->AddButton(buttonPlugin->GetCategory()
+                                           , buttonPlugin->GetPanel()
+                                           , buttonPlugin->GetButtonWidget());
+                }
+            }
+            if(m_mainWindow)
+            {
+                IDockPlugin *dockPlugin = dynamic_cast<IDockPlugin*>(plugin);
+                if(dockPlugin)
+                {
+                    LOG() << "Translate to IDockPlugin successful, add to dock area.";
+                    m_mainWindow->addDockWidget(dockPlugin->GetDockPosition()
+                                                , dockPlugin->GetDockWidget());
+                }
+            }
+            if(m_subWindowList)
+            {
+                IWindowPlugin *windowPlugin = dynamic_cast<IWindowPlugin*>(plugin);
+                if(windowPlugin)
+                {
+                    LOG() << "Translate to IWindowPlugin successful, add to dock area.";
+                    m_subWindowList->AddSubWindow(windowPlugin->GetWindowWidget());
+                }
+            }
+            LOG() << "Translate ui done.";
             return plugin;
         }
         LOG() << "Create failed!!!";
@@ -189,6 +231,21 @@ qsizetype PluginsManager::GetPluginsCount(const QString &id)
         return 0;
     }
     return m_plugins.value(id).count();
+}
+
+void PluginsManager::SetRibbonBar(RibbonBar *ribbonBar)
+{
+    m_ribbonBar = ribbonBar;
+}
+
+void PluginsManager::SetMainWindow(QMainWindow *mainWindow)
+{
+    m_mainWindow = mainWindow;
+}
+
+void PluginsManager::SetSubWindowList(SubWindowList *subWindowList)
+{
+    m_subWindowList = subWindowList;
 }
 
 void PluginsManager::RegisterSlot(const IPlugin *plugin)

@@ -15,6 +15,7 @@ set(TS_FILES PluginsManager_zh_CN.ts)
 
 include(../Interface/PluginsCore/PluginsCore.cmake)
 include(../Interface/PluginsManager/PluginsManager.cmake)
+include(../Interface/Ui/Ui.cmake)
 
 add_library(PluginsManager SHARED
   PluginsManager.cpp
@@ -26,6 +27,9 @@ add_library(PluginsManager SHARED
 
 target_link_libraries(PluginsManager PRIVATE Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets)
 set_target_properties(PluginsManager PROPERTIES SUFFIX ".plugin")
+
+link_directories(${PROJECT_SOURCE_DIR}/Build/${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE}/lib)
+target_link_libraries(PluginsManager PRIVATE Ui)
 
 target_compile_definitions(PluginsManager PRIVATE PLUGINSMANAGER_LIBRARY)
 

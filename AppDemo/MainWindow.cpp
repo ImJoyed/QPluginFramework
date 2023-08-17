@@ -25,56 +25,54 @@ MainWindow::MainWindow(QWidget *parent)
     // ribbon bar
     RibbonBar *ribbonBar = new RibbonBar(this);
     this->setMenuWidget(ribbonBar);
-    RibbonCategory *category;
-    // tab 1
-    category = ribbonBar->AddCategory("cate_1");
-    RibbonPanel *panel;
-    // tab1 group 1
-    panel = category->AddPanel("panel_1_1");
-    QPushButton *btn;
-    btn = new QPushButton("btn_1_1_1");
-    panel->AddButton(btn);
-    btn = new QPushButton("btn_1_1_2");
-    panel->AddButton(btn);
-    panel->AddSeparator();
-    btn = new QPushButton("btn_1_1_3");
-    panel->AddButton(btn);
-    // tab1 group 2
-    panel = category->AddPanel("panel_1_2");
-    btn = new QPushButton("btn_1_2_1");
-    panel->AddButton(btn);
-    btn = new QPushButton("btn_1_2_2");
-    panel->AddButton(btn);
-    // tab2
-    category = ribbonBar->AddCategory("cate_2");
-    // tab2 group 1
-    panel = category->AddPanel("panel_2_1");
-    btn = new QPushButton("btn_2_1_1");
-    panel->AddButton(btn);
+//    RibbonCategory *category;
+//    // tab 1
+//    category = ribbonBar->AddCategory("cate_1");
+//    RibbonPanel *panel;
+//    // tab1 group 1
+//    panel = category->AddPanel("panel_1_1");
+//    QPushButton *btn;
+//    btn = new QPushButton("btn_1_1_1");
+//    panel->AddButton(btn);
+//    btn = new QPushButton("btn_1_1_2");
+//    panel->AddButton(btn);
+//    panel->AddSeparator();
+//    btn = new QPushButton("btn_1_1_3");
+//    panel->AddButton(btn);
+//    // tab1 group 2
+//    panel = category->AddPanel("panel_1_2");
+//    btn = new QPushButton("btn_1_2_1");
+//    panel->AddButton(btn);
+//    btn = new QPushButton("btn_1_2_2");
+//    panel->AddButton(btn);
+//    // tab2
+//    category = ribbonBar->AddCategory("cate_2");
+//    // tab2 group 1
+//    panel = category->AddPanel("panel_2_1");
+//    btn = new QPushButton("btn_2_1_1");
+//    panel->AddButton(btn);
 
     // dock widget
-    SubWindowList *subWindowsTree = new SubWindowList(this);
-    this->addDockWidget(Qt::DockWidgetArea::LeftDockWidgetArea, subWindowsTree);
+    SubWindowList *subWindowsList = new SubWindowList(this);
+    this->addDockWidget(Qt::DockWidgetArea::LeftDockWidgetArea, subWindowsList);
 
     // mdi area
-    this->setCentralWidget(subWindowsTree->GetSubWindowArea());
-
-
-    // add sub window
-    QWidget *viewWidget;
-    // sub window 1
-    viewWidget = new QWidget(this);
-    new QLabel("sub window 1", viewWidget);
-    viewWidget->setWindowTitle("sub window 1");
-    subWindowsTree->AddSubWindow(viewWidget);
-    // sub window 2
-    viewWidget = new QWidget(this);
-    new QLabel("sub window 2", viewWidget);
-    viewWidget->setWindowTitle("sub window 2");
-    subWindowsTree->AddSubWindow(viewWidget);
-    // active sub window 1
-    if(subWindowsTree->GetSubWindowArea()->subWindowList().count() > 0)
-        subWindowsTree->GetSubWindowArea()->setActiveSubWindow(subWindowsTree->GetSubWindowArea()->subWindowList().at(0));
+    this->setCentralWidget(subWindowsList->GetSubWindowArea());
+//    // add sub window
+//    QWidget *viewWidget;
+//    // sub window 1
+//    viewWidget = new QWidget(this);
+//    new QLabel("sub window 1", viewWidget);
+//    viewWidget->setWindowTitle("sub window 1");
+//    subWindowsTree->AddSubWindow(viewWidget);
+//    // sub window 2
+//    viewWidget = new QWidget(this);
+//    new QLabel("sub window 2", viewWidget);
+//    viewWidget->setWindowTitle("sub window 2");
+//    subWindowsTree->AddSubWindow(viewWidget);
+//    // active sub window 1
+//    if(subWindowsTree->GetSubWindowArea()->subWindowList().count() > 0)
+//        subWindowsTree->GetSubWindowArea()->setActiveSubWindow(subWindowsTree->GetSubWindowArea()->subWindowList().at(0));
 
     // status bar
     QWidget *statusBar = new QWidget(this);
@@ -122,30 +120,38 @@ MainWindow::MainWindow(QWidget *parent)
             }
             else
             {
-                qDebug() << "Test IPluginDemo...";
-                IPlugin *plugin = manager->CreatePlugin(PLUGINDEMO_ID);
-                if(!plugin)
-                {
-                    qDebug() << "Create plugin failed!!!";
-                }
-                IPluginDemo *pluginDemo = dynamic_cast<IPluginDemo *>(plugin);
-                if(!pluginDemo)
-                {
-                    qDebug() << "Convert IPluginDemo failed!!!";
-                }
-                else
-                {
-                    pluginDemo->Echo("Hello.");
-                }
-                qDebug() << "Destroy IPluginDemo...";
-                if(!manager->DestroyPlugin(pluginDemo))
-                {
-                    qDebug() << "Destroyed IPluginDemo failed!!!";
-                }
-                else
-                {
-                    qDebug() << "Destroyed IPluginDemo.";
-                }
+                qDebug() << "Set ribbonbar, mainwindow, subwindowlist to plugin manager.";
+                manager->SetRibbonBar(ribbonBar);
+                manager->SetMainWindow(this);
+                manager->SetSubWindowList(subWindowsList);
+                qDebug() << "Create plugins...";
+                manager->CreatePlugin(PLUGINDEMO_ID);
+                qDebug() << "Create plugins done.";
+
+//                qDebug() << "Test IPluginDemo...";
+//                IPlugin *plugin = manager->CreatePlugin(PLUGINDEMO_ID);
+//                if(!plugin)
+//                {
+//                    qDebug() << "Create plugin failed!!!";
+//                }
+//                IPluginDemo *pluginDemo = dynamic_cast<IPluginDemo *>(plugin);
+//                if(!pluginDemo)
+//                {
+//                    qDebug() << "Convert IPluginDemo failed!!!";
+//                }
+//                else
+//                {
+//                    pluginDemo->Echo("Hello.");
+//                }
+//                qDebug() << "Destroy IPluginDemo...";
+//                if(!manager->DestroyPlugin(pluginDemo))
+//                {
+//                    qDebug() << "Destroyed IPluginDemo failed!!!";
+//                }
+//                else
+//                {
+//                    qDebug() << "Destroyed IPluginDemo.";
+//                }
             }
         }
     }

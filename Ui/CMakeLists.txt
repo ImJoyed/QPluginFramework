@@ -15,7 +15,7 @@ set(TS_FILES Ui_zh_CN.ts)
 
 include(../Interface/Ui/Ui.cmake)
 
-add_library(Ui STATIC
+add_library(Ui SHARED
     RibbonPanel.cpp
     RibbonCategory.cpp
     RibbonBar.cpp

@@ -30,13 +30,16 @@ void PluginDemo::MessageSlot(const QString& key, const QObject* msgObj)
     ;
     if(key == "echo.demoplugin.pluginspackage.joyed.cn")
     {
-        LOG() << "recv msg: " << msgObj->property("echo").toString();
+        QString msg = msgObj->property("echo").toString();
+        LOG() << "recv msg: " << msg;
     }
 }
 
 void PluginDemo::Echo(const QString &msg)
 {
-    LOG() << "send msg: " << msg;
-    this->setProperty("echo", msg);
-    emit MessageSignal("echo.demoplugin.pluginspackage.joyed.cn", this);
+    LOG() << "call Echo().";
+    qDebug() << msg;
+
+//    this->setProperty("echo", msg);
+//    emit MessageSignal("echo.demoplugin.pluginspackage.joyed.cn", this);
 }

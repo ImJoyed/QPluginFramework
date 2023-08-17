@@ -23,3 +23,4 @@ add_subdirectory(PluginsPackageDemo)
 add_subdirectory(AppDemo)
 
 add_dependencies(AppDemo Ui)
+add_dependencies(PluginsManager Ui)

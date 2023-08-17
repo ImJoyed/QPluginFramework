@@ -23,13 +23,16 @@ public:
     bool RemoveAt(const int &index);
     void RemoveAll();
 
+    const QString &GetName();
+
 private:
     QFrame* createVLine();
 
 protected:
     QHBoxLayout* m_layout;
-    QLabel *m_name;
+    QLabel *m_nameLabel;
     QList<QWidget*> m_buttons;
+    QString m_name;
 };
 
 #endif // RIBBONPANEL_H

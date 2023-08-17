@@ -1,8 +1,8 @@
 ﻿#include "RibbonCategory.h"
 #include "RibbonPanel.h"
 
-RibbonCategory::RibbonCategory(QWidget *parent)
-    : QWidget{parent}
+RibbonCategory::RibbonCategory(const QString &name, QWidget *parent)
+    : m_name(name), QWidget{parent}
 {
     m_layout = new QHBoxLayout(this);
     m_layout->setAlignment(Qt::AlignLeft);
@@ -44,4 +44,14 @@ RibbonPanel *RibbonCategory::GetPanel(const int &index) const
     if(index < 0 || index >= m_panels.count())
         return nullptr;
     return m_panels.at(index);
+}
+
+QList<RibbonPanel *> RibbonCategory::GetAllPanels() const
+{
+    return m_panels;
+}
+
+const QString &RibbonCategory::GetName()
+{
+    return m_name;
 }

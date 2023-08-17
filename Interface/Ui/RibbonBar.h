@@ -20,6 +20,8 @@ public:
     qsizetype GetCategoryCount() const;
     RibbonCategory* GetCategory(const int &index) const;
 
+    void AddButton(const QString &category, const QString &panel, QWidget *button);
+
 
 protected:
     QTabWidget *m_tabWidget;

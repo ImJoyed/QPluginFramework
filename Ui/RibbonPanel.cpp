@@ -2,7 +2,7 @@
 #include <QLine>
 
 RibbonPanel::RibbonPanel(const QString &name, QWidget *parent)
-    : QGroupBox(parent)
+    : m_name(name), QGroupBox(parent)
 {
     // panel's layout
     QVBoxLayout *vLayout = new QVBoxLayout(this);
@@ -15,9 +15,9 @@ RibbonPanel::RibbonPanel(const QString &name, QWidget *parent)
     m_layout->setAlignment(Qt::AlignCenter);
     buttonsWidget->setLayout(m_layout);
     // title
-    m_name = new QLabel(name, this);
-    m_name->setAlignment(Qt::AlignCenter);
-    vLayout->addWidget(m_name);
+    m_nameLabel = new QLabel(name, this);
+    m_nameLabel->setAlignment(Qt::AlignCenter);
+    vLayout->addWidget(m_nameLabel);
 }
 
 void RibbonPanel::AddButton(QWidget *button)
@@ -88,6 +88,11 @@ void RibbonPanel::RemoveAll()
         delete item;
     }
     m_buttons.clear();
+}
+
+const QString &RibbonPanel::GetName()
+{
+    return m_name;
 }
 
 QFrame *RibbonPanel::createVLine()
