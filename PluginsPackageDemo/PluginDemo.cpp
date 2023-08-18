@@ -27,11 +27,11 @@ PLUGIN_TYPE PluginDemo::GetPluginType()
 
 void PluginDemo::MessageSlot(const QString& key, const QObject* msgObj)
 {
-    ;
     if(key == "echo.demoplugin.pluginspackage.joyed.cn")
     {
         QString msg = msgObj->property("echo").toString();
         LOG() << "recv msg: " << msg;
+        this->Echo(msg);
     }
 }
 
@@ -39,7 +39,4 @@ void PluginDemo::Echo(const QString &msg)
 {
     LOG() << "call Echo().";
     qDebug() << msg;
-
-//    this->setProperty("echo", msg);
-//    emit MessageSignal("echo.demoplugin.pluginspackage.joyed.cn", this);
 }

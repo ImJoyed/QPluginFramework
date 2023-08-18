@@ -17,13 +17,13 @@ include(../Interface/PluginsCore/PluginsCore.cmake)
 include(../Interface/PluginsDemo/PluginsDemo.cmake)
 
 add_library(PluginsPackageDemo SHARED
-  PluginDemo.cpp
-  PluginDemo.h
-  PluginsPackageDemo.cpp
-  PluginsPackageDemo.h
-  PluginsPackageDemo.json
-  ${TS_FILES}
-  ${Interface}
+    PluginDemo.cpp
+    PluginDemo.h
+    PluginsPackageDemo.cpp
+    PluginsPackageDemo.h
+    PluginsPackageDemo.json
+    ${TS_FILES}
+    ${Interface}
 )
 
 target_link_libraries(PluginsPackageDemo PRIVATE Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets)

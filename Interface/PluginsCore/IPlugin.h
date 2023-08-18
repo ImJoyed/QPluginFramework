@@ -1,7 +1,6 @@
 #ifndef IPLUGIN_H
 #define IPLUGIN_H
 
-#include <QDockWidget>
 #include <QtCore>
 
 enum class PLUGIN_TYPE {
@@ -47,8 +46,8 @@ public:
 
     }
     virtual QWidget *GetButtonWidget() = 0;
-    virtual const QString& GetCategory() = 0;
-    virtual const QString& GetPanel() = 0;
+    virtual const QString GetCategory() = 0;
+    virtual const QString GetPanel() = 0;
 };
 
 class IDockPlugin : public IButtonPlugin
@@ -64,7 +63,7 @@ public:
     {
 
     }
-    virtual QDockWidget *GetDockWidget() = 0;
+    virtual QWidget *GetDockWidget() = 0;
     virtual Qt::DockWidgetArea GetDockPosition() = 0;
 };
 

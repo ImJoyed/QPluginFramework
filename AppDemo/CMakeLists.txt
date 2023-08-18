@@ -16,16 +16,17 @@ set(TS_FILES AppDemo_zh_CN.ts)
 
 include(../Interface/PluginsCore/PluginsCore.cmake)
 include(../Interface/PluginsDemo/PluginsDemo.cmake)
+include(../Interface/UiPluginsDemo/UiPluginsDemo.cmake)
 include(../Interface/PluginsManager/PluginsManager.cmake)
 include(../Interface/Ui/Ui.cmake)
 
 set(PROJECT_SOURCES
-        main.cpp
-        MainWindow.cpp
-        MainWindow.h
-        MainWindow.ui
-        ${TS_FILES}
-        ${Interface}
+    main.cpp
+    MainWindow.cpp
+    MainWindow.h
+    MainWindow.ui
+    ${TS_FILES}
+    ${Interface}
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

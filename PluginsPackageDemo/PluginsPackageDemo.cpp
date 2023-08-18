@@ -1,7 +1,6 @@
 ﻿#include "PluginsPackageDemo.h"
 #include "IPlugin.h"
 #include <QDebug>
-#include <QMap>
 #include <QList>
 
 #include "PluginDemo.h"
@@ -24,6 +23,10 @@ IPlugin *PluginsPackageDemo::CreatePlugin(const QString &id)
     if(id == PLUGINDEMO_ID)
     {
         plugin = new PluginDemo();
+    }
+
+    if(plugin)
+    {
         emit RegisterSignal(plugin);
     }
     return plugin;

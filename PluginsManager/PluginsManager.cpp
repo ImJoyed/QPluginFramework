@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QMap>
 #include <QList>
+#include <QVBoxLayout>
 #include "RibbonBar.h"
 #include <QMainWindow>
 #include "SubWindowList.h"
@@ -142,8 +143,26 @@ IPlugin *PluginsManager::CreatePlugin(const QString &id, bool translateUi)
                 if(dockPlugin)
                 {
                     LOG() << "Translate to IDockPlugin successful, add to dock area.";
+                    QDockWidget *dockWidget = new QDockWidget();
+                    // delete title bar
+                    delete dockWidget->titleBarWidget();
+                    dockWidget->setTitleBarWidget(new QWidget(dockWidget));
+                    // dock real widget
+                    QWidget *dockRealWidget = new QWidget(dockWidget);
+                    dockWidget->setWidget(dockRealWidget);
+                    QVBoxLayout *layout = new QVBoxLayout(dockRealWidget);
+                    dockRealWidget->setLayout(layout);
+                    layout->setAlignment(Qt::AlignTop);
+                    // dock main widget
+                    QWidget *widget = dockPlugin->GetDockWidget();
+                    widget->setParent(dockWidget);
+                    // title
+                    QLabel *title = new QLabel(widget->windowTitle(), widget);
+                    layout->addWidget(title);
+                    // widget in plugin
+                    layout->addWidget(widget);
                     m_mainWindow->addDockWidget(dockPlugin->GetDockPosition()
-                                                , dockPlugin->GetDockWidget());
+                                                , dockWidget);
                 }
             }
             if(m_subWindowList)

@@ -5,9 +5,9 @@
 #include <QDebug>
 #include "IPluginsManager.h"
 #include "IPluginDemo.h"
+#include "UiPluginDemoIds.h"
 #include "IPlugin.h"
 
-#include "RibbonBar.h"
 #include <QDateTime>
 #include <QPushButton>
 
@@ -126,23 +126,27 @@ MainWindow::MainWindow(QWidget *parent)
                 manager->SetSubWindowList(subWindowsList);
                 qDebug() << "Create plugins...";
                 manager->CreatePlugin(PLUGINDEMO_ID);
+                manager->CreatePlugin(COMMANDPLUGIN_ID);
+                manager->CreatePlugin(DOCKPLUGIN_ID);
+                manager->CreatePlugin(TOOLPLUGIN_ID);
+                manager->CreatePlugin(WINDOWPLUGIN_ID);
                 qDebug() << "Create plugins done.";
 
-//                qDebug() << "Test IPluginDemo...";
-//                IPlugin *plugin = manager->CreatePlugin(PLUGINDEMO_ID);
-//                if(!plugin)
-//                {
-//                    qDebug() << "Create plugin failed!!!";
-//                }
-//                IPluginDemo *pluginDemo = dynamic_cast<IPluginDemo *>(plugin);
-//                if(!pluginDemo)
-//                {
-//                    qDebug() << "Convert IPluginDemo failed!!!";
-//                }
-//                else
-//                {
-//                    pluginDemo->Echo("Hello.");
-//                }
+                qDebug() << "Test IPluginDemo...";
+                IPlugin *plugin = manager->CreatePlugin(PLUGINDEMO_ID);
+                if(!plugin)
+                {
+                    qDebug() << "Create plugin failed!!!";
+                }
+                IPluginDemo *pluginDemo = dynamic_cast<IPluginDemo *>(plugin);
+                if(!pluginDemo)
+                {
+                    qDebug() << "Convert IPluginDemo failed!!!";
+                }
+                else
+                {
+                    pluginDemo->Echo("Hello.");
+                }
 //                qDebug() << "Destroy IPluginDemo...";
 //                if(!manager->DestroyPlugin(pluginDemo))
 //                {

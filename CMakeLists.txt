@@ -20,6 +20,7 @@ set(CMAKE_DEBUG_POSTFIX "_d")
 add_subdirectory(Ui)
 add_subdirectory(PluginsManager)
 add_subdirectory(PluginsPackageDemo)
+add_subdirectory(UiPluginsPackageDemo)
 add_subdirectory(AppDemo)
 
 add_dependencies(AppDemo Ui)

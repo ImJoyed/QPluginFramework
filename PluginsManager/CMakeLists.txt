@@ -18,11 +18,11 @@ include(../Interface/PluginsManager/PluginsManager.cmake)
 include(../Interface/Ui/Ui.cmake)
 
 add_library(PluginsManager SHARED
-  PluginsManager.cpp
-  PluginsManager.h
-  PluginsManager.json
-  ${TS_FILES}
-  ${Interface}
+    PluginsManager.cpp
+    PluginsManager.h
+    PluginsManager.json
+    ${TS_FILES}
+    ${Interface}
 )
 
 target_link_libraries(PluginsManager PRIVATE Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets)
