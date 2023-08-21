@@ -15,7 +15,7 @@ set(TS_FILES Ui_zh_CN.ts)
 
 include(../Interface/Ui/Ui.cmake)
 
-add_library(Ui SHARED
+set(SRC_FILES
     RibbonPanel.cpp
     RibbonCategory.cpp
     RibbonBar.cpp
@@ -24,6 +24,11 @@ add_library(Ui SHARED
     ${Interface}
 )
 
+IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
+    add_library(Ui SHARED ${SRC_FILES})
+ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Windows")
+    add_library(Ui ${SRC_FILES})
+ENDIF()
 target_link_libraries(Ui PRIVATE Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../Build/${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE}/lib)
 #set_target_properties(RibbonUi PROPERTIES SUFFIX ".plugin")
