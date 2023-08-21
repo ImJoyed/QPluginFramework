@@ -119,6 +119,8 @@ IPlugin *PluginsManager::CreatePlugin(const QString &id, bool translateUi)
                 QList<IPlugin*> plugins {plugin};
                 m_plugins.insert(id, plugins);
             }
+            // Set manager pointer
+            plugin->SetManager(this);
 
             if(!translateUi)
             {
@@ -131,10 +133,14 @@ IPlugin *PluginsManager::CreatePlugin(const QString &id, bool translateUi)
                 IButtonPlugin *buttonPlugin = dynamic_cast<IButtonPlugin*>(plugin);
                 if(buttonPlugin)
                 {
-                    LOG() << "Translate to IButtonPlugin successful, add to ribbon bar.";
-                    m_ribbonBar->AddButton(buttonPlugin->GetCategory()
-                                           , buttonPlugin->GetPanel()
-                                           , buttonPlugin->GetButtonWidget());
+                    QWidget *widget = buttonPlugin->GetButtonWidget();
+                    if(widget)
+                    {
+                        LOG() << "Translate to IButtonPlugin successful, add to ribbon bar.";
+                        m_ribbonBar->AddButton(buttonPlugin->GetCategory()
+                                               , buttonPlugin->GetPanel()
+                                               , widget);
+                    }
                 }
             }
             if(m_mainWindow)
@@ -142,27 +148,87 @@ IPlugin *PluginsManager::CreatePlugin(const QString &id, bool translateUi)
                 IDockPlugin *dockPlugin = dynamic_cast<IDockPlugin*>(plugin);
                 if(dockPlugin)
                 {
-                    LOG() << "Translate to IDockPlugin successful, add to dock area.";
-                    QDockWidget *dockWidget = new QDockWidget();
-                    // delete title bar
-                    delete dockWidget->titleBarWidget();
-                    dockWidget->setTitleBarWidget(new QWidget(dockWidget));
-                    // dock real widget
-                    QWidget *dockRealWidget = new QWidget(dockWidget);
-                    dockWidget->setWidget(dockRealWidget);
-                    QVBoxLayout *layout = new QVBoxLayout(dockRealWidget);
-                    dockRealWidget->setLayout(layout);
-                    layout->setAlignment(Qt::AlignTop);
-                    // dock main widget
                     QWidget *widget = dockPlugin->GetDockWidget();
-                    widget->setParent(dockWidget);
-                    // title
-                    QLabel *title = new QLabel(widget->windowTitle(), widget);
-                    layout->addWidget(title);
-                    // widget in plugin
-                    layout->addWidget(widget);
-                    m_mainWindow->addDockWidget(dockPlugin->GetDockPosition()
-                                                , dockWidget);
+                    if(widget)
+                    {
+                        LOG() << "Translate to IDockPlugin successful, add to dock area.";
+                        QDockWidget *dockWidget = new QDockWidget();
+                        // delete title bar
+                        delete dockWidget->titleBarWidget();
+                        dockWidget->setTitleBarWidget(new QWidget(dockWidget));
+                        // dock real widget
+                        QWidget *dockRealWidget = new QWidget(dockWidget);
+                        dockWidget->setWidget(dockRealWidget);
+                        QVBoxLayout *layout = new QVBoxLayout(dockRealWidget);
+                        dockRealWidget->setLayout(layout);
+                        layout->setAlignment(Qt::AlignTop);
+                        // dock main widget
+                        widget->setParent(dockWidget);
+                        // title
+                        QLabel *title = new QLabel(widget->windowTitle(), widget);
+                        layout->addWidget(title);
+                        // widget in plugin
+                        layout->addWidget(widget);
+                        static QDockWidget* s_leftDockWidget = m_subWindowList;
+                        static QDockWidget* s_rightDockWidget = nullptr;
+                        static QDockWidget* s_topDockWidget = nullptr;
+                        static QDockWidget* s_bottomDockWidget = nullptr;
+                        switch(dockPlugin->GetDockPosition())
+                        {
+                            case Qt::LeftDockWidgetArea:
+                            {
+                                if(s_leftDockWidget)
+                                {
+                                    m_mainWindow->addDockWidget(Qt::LeftDockWidgetArea, dockWidget);
+                                }
+                                else
+                                {
+                                    m_mainWindow->tabifyDockWidget(s_leftDockWidget, dockWidget);
+                                }
+                                s_leftDockWidget = dockWidget;
+                                break;
+                            }
+                            case Qt::RightDockWidgetArea:
+                            {
+                                if(s_rightDockWidget)
+                                {
+                                    m_mainWindow->addDockWidget(Qt::RightDockWidgetArea, dockWidget);
+                                }
+                                else
+                                {
+                                    m_mainWindow->tabifyDockWidget(s_rightDockWidget, dockWidget);
+                                }
+                                s_rightDockWidget = dockWidget;
+                                break;
+                            }
+                            case Qt::TopDockWidgetArea:
+                            {
+                                if(s_topDockWidget)
+                                {
+                                    m_mainWindow->addDockWidget(Qt::TopDockWidgetArea, dockWidget);
+                                }
+                                else
+                                {
+                                    m_mainWindow->tabifyDockWidget(s_topDockWidget, dockWidget);
+                                }
+                                s_topDockWidget = dockWidget;
+                                break;
+                            }
+                            case Qt::BottomDockWidgetArea:
+                            {
+                                if(s_bottomDockWidget)
+                                {
+                                    m_mainWindow->addDockWidget(Qt::BottomDockWidgetArea, dockWidget);
+                                }
+                                else
+                                {
+                                    m_mainWindow->tabifyDockWidget(s_bottomDockWidget, dockWidget);
+                                }
+                                s_bottomDockWidget = dockWidget;
+                                break;
+                            }
+                        }
+                    }
                 }
             }
             if(m_subWindowList)
@@ -170,8 +236,12 @@ IPlugin *PluginsManager::CreatePlugin(const QString &id, bool translateUi)
                 IWindowPlugin *windowPlugin = dynamic_cast<IWindowPlugin*>(plugin);
                 if(windowPlugin)
                 {
-                    LOG() << "Translate to IWindowPlugin successful, add to dock area.";
-                    m_subWindowList->AddSubWindow(windowPlugin->GetWindowWidget());
+                    QWidget *widget = windowPlugin->GetWindowWidget();
+                    if(widget)
+                    {
+                        LOG() << "Translate to IWindowPlugin successful, add to dock area.";
+                        m_subWindowList->AddSubWindow(widget);
+                    }
                 }
             }
             LOG() << "Translate ui done.";

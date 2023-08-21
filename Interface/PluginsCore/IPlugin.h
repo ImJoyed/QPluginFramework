@@ -3,6 +3,8 @@
 
 #include <QtCore>
 
+class IPluginsManager;
+
 enum class PLUGIN_TYPE {
     NORMAL = 0,
     SINGLE,
@@ -25,11 +27,19 @@ public:
 
     virtual PLUGIN_TYPE GetPluginType() = 0;
 
+    virtual void SetManager(IPluginsManager *manager)
+    {
+        m_manager = manager;
+    }
+
 signals:
     void MessageSignal(const QString& key, const QObject* msgObj);
 
 public slots:
     virtual void MessageSlot(const QString& key, const QObject* msgObj) = 0;
+
+private:
+    IPluginsManager *m_manager;
 };
 
 class IButtonPlugin : public IPlugin

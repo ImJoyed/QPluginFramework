@@ -2,6 +2,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QDockWidget>
+#include <QMessageBox>
 
 DockPlugin::DockPlugin(QObject *parent)
     : IDockPlugin{parent}
@@ -62,14 +63,28 @@ QWidget *DockPlugin::GetDockWidget()
 
 Qt::DockWidgetArea DockPlugin::GetDockPosition()
 {
-    return Qt::RightDockWidgetArea;
+    return Qt::LeftDockWidgetArea;
 }
 
 void DockPlugin::onButtonClicked(bool checked)
 {
+    // m_widget's parent is not a QDockWidget！
+    // m_widget's parent is the widget, which set by QDockWidget::setWidget(QWidget*) in PluginsManager.
     QObject *parent = m_widget->parent();
     QDockWidget *dockWidget = dynamic_cast<QDockWidget*>(parent);
     if(!dockWidget)
+    {
+        parent = parent->parent();
+        dockWidget = dynamic_cast<QDockWidget*>(parent);
+    }
+    if(!dockWidget)
         return;
+
+    QString msg = tr("Dock Button is %1.").arg(checked ? "checked" : "unchecked");
+    this->setProperty("echo", msg);
+    emit MessageSignal("echo.demoplugin.pluginspackage.joyed.cn", this);
+
+    QMessageBox::information(nullptr, tr("Tips"), tr("You clicked Dock Button, now dock is %1.").arg(checked ? "show" : "hide"), QMessageBox::Ok);
+
     checked ? dockWidget->show() : dockWidget->hide();
 }
