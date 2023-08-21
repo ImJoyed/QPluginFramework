@@ -21,6 +21,9 @@ public slots:
     // IWindowPlugin interface
 public:
     virtual QWidget *GetWindowWidget() override;
+
+private:
+    QWidget *m_widget;
 };
 
 #endif // WINDOWPLUGIN_H
