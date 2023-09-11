@@ -1,4 +1,4 @@
-﻿#include "WindowPlugin.h"
+#include "WindowPlugin.h"
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPlainTextEdit>
