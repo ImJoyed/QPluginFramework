@@ -1,4 +1,4 @@
-#ifndef WINDOWPLUGIN_H
+﻿#ifndef WINDOWPLUGIN_H
 #define WINDOWPLUGIN_H
 
 #include "IPlugin.h"
@@ -21,6 +21,9 @@ public slots:
     // IWindowPlugin interface
 public:
     virtual QWidget *GetWindowWidget() override;
+
+private:
+    QWidget *m_widget;
 };
 
 #endif // WINDOWPLUGIN_H
